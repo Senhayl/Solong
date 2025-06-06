@@ -6,61 +6,84 @@
 /*   By: mlouron <mlouron@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 14:48:19 by mlouron           #+#    #+#             */
-/*   Updated: 2025/05/30 18:10:33 by mlouron          ###   ########.fr       */
+/*   Updated: 2025/06/05 17:57:10 by mlouron          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	CheckLeft(t_game *g)
+int	check_left(t_game *g)
 {
 	int	x;
 	int	y;
 
 	x = g->player->x;
 	y = g->player->y;
-	if (x <= 0 || g->map[y][x - 1]== '1')
+	if (g->map[y][x - 1] == '1')
 		return (0);
-	MoveLeft(g);
+	move_left(g);
 	return (1);
 }
 
-int	CheckRight(t_game *g)
+int	check_right(t_game *g)
 {
 	int	x;
 	int	y;
 
 	x = g->player->x;
 	y = g->player->y;
-	if (x >= g->dim->la - 1 || g->map[y][x  + 1]== '1')
+	if (g->map[y][x + 1] == '1')
 		return (0);
-	MoveRight(g);
+	move_right(g);
 	return (1);
 }
 
-int	CheckUp(t_game *g)
+int	check_up(t_game *g)
 {
 	int	x;
 	int	y;
 
 	x = g->player->x;
 	y = g->player->y;
-	if (y <= 0 || g->map[y - 1][x] == '1')
+	if (g->map[y - 1][x] == '1')
 		return (0);
-	MoveUp(g);
+	move_up(g);
 	return (1);
 }
 
-int	CheckDown(t_game *g)
+int	check_down(t_game *g)
 {
 	int	x;
 	int	y;
 
 	x = g->player->x;
 	y = g->player->y;
-	if (y >= g->dim->lo - 1 || g->map[y + 1][x] == '1')
+	if (g->map[y + 1][x] == '1')
 		return (0);
-	MoveDown(g);
+	move_down(g);
 	return (1);
 }
 
+int	check_collectibles(t_game *g)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y != g->dim->lo)
+	{
+		x = 0;
+		while (x != g->dim->la)
+		{
+			if (g->map[y][x] == 'C')
+			{
+				return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	if (move_on_exit(g) == 0)
+		return (0);
+	return (1);
+}
