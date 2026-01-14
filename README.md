@@ -65,8 +65,8 @@ Example:
 ## 🧪 Compilation & Usage
 
 ### 🔹 Compile the game
-```bash
-make
+
+```make```
 
 🔹 Run the game
 
